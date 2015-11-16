@@ -16,12 +16,14 @@
 #
 
 name "ImageMagick"
-default_version "6.9.2-4"
+default_version "6.9.2-6"
+
 
 # Sources may be URLs, git locations, or path locations
 source url: "http://www.imagemagick.org/download/ImageMagick-#{version}.tar.gz"
 
 version("6.9.2-4") { source md5: "9a8ca2a52a1ec6668b40fd3f02ee8ef0" }
+version("6.9.2-6") { source md5: "7c88eeb52892efa6c412f4ebc06afc9c" }
 
 relative_path "ImageMagick-#{version}"
 
