@@ -16,7 +16,7 @@
 #
 
 name "ImageMagick"
-default_version "6.9.2-6"
+default_version "6.9.2-7"
 
 
 # Sources may be URLs, git locations, or path locations
