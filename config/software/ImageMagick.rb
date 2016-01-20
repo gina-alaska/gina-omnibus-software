@@ -16,7 +16,7 @@
 #
 
 name "ImageMagick"
-default_version "6.9.3-0"
+default_version "6.9.3-1"
 
 
 # Sources may be URLs, git locations, or path locations
@@ -26,6 +26,7 @@ version("6.9.2-4") { source md5: "9a8ca2a52a1ec6668b40fd3f02ee8ef0" }
 version("6.9.2-6") { source md5: "7c88eeb52892efa6c412f4ebc06afc9c" }
 version("6.9.2-7") { source md5: "3dfa81e2b00e28a4a6c3c0699f766bcf" }
 version("6.9.3-0") { source md5: "6e1dad3aeec9620a6826f63ca688a6d7" }
+version("6.9.3-1") { source md5: "9502745ca46e4a10053f4f92a65c1181" }
 
 relative_path "ImageMagick-#{version}"
 
