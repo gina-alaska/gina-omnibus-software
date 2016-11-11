@@ -15,19 +15,25 @@
 # limitations under the License.
 #
 
-name "libtiff"
-default_version "4.0.3"
+name "proj"
+default_version "4.8.0"
 
-source :url => "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz",
-       :md5 => "051c1068e6a0627f461948c365290410"
+source :url => "ftp://ftp.remotesensing.org/proj/proj-4.8.0.tar.gz",
+       :md5 => "d815838c92a29179298c126effbb1537"
 
-dependency 'zlib'
 
-relative_path "tiff-#{version}"
+relative_path "#{name}-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  command "./configure --prefix=#{install_dir}/embedded --with-zlib-prefix=#{install_dir}/embedded", env: env
+  #Fetch additional datagrids
+  additional_source = URI("ftp://ftp.remotesensing.org/proj/proj-datumgrid-1.5.zip")
+
+  command "curl #{additional_source.to_s} -O"
+  command "unzip #{::File.basename(additional_source.path)} -d #{project_dir}"
+  patch source: 'epsg.patch'
+
+  command "./configure --prefix=#{install_dir} --with-zlib-prefix=#{install_dir}/embedded", env: env
   command "make -j #{workers}", env: env
   command "make install", env: env
 end

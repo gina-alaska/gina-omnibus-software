@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) University of Alaska Fairbanks
+# Copyright:: Copyright (c) 2012 Opscode, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,18 @@
 # limitations under the License.
 #
 
-name "libtiff"
-default_version "4.0.3"
+name "giflib"
+default_version "4.2.3"
 
-source :url => "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz",
-       :md5 => "051c1068e6a0627f461948c365290410"
+source :url => "http://downloads.sourceforge.net/project/giflib/giflib-4.x/giflib-4.2.3.tar.bz2",
+       :md5 => "be1f5749c24644257a88c9f42429343d"
 
-dependency 'zlib'
-
-relative_path "tiff-#{version}"
+relative_path "giflib-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  command "./configure --prefix=#{install_dir}/embedded --with-zlib-prefix=#{install_dir}/embedded", env: env
+  command "./configure --prefix=#{install_dir}/embedded --disable-x11", env: env
+  command "sed -i \"s/SUBDIRS = lib util doc pic/SUBDIRS = lib util pic/\" Makefile"
   command "make -j #{workers}", env: env
   command "make install", env: env
 end

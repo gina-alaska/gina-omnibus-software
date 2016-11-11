@@ -15,19 +15,20 @@
 # limitations under the License.
 #
 
-name "libtiff"
-default_version "4.0.3"
+name "patchelf"
+default_version "0.6"
 
-source :url => "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz",
-       :md5 => "051c1068e6a0627f461948c365290410"
+source :url => "http://hydra.nixos.org/build/1524660/download/3/patchelf-0.6.tar.gz",
+       :md5 => "d77b5e1e4850c8fbb4cbb29fe8f4e88d"
 
-dependency 'zlib'
 
-relative_path "tiff-#{version}"
+relative_path "#{name}-#{version}"
+
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-  command "./configure --prefix=#{install_dir}/embedded --with-zlib-prefix=#{install_dir}/embedded", env: env
+  env  = with_standard_compiler_flags(with_embedded_path)
+  command [ "./configure",
+            "--prefix=#{install_dir}/embedded"].join(" "), env: env
   command "make -j #{workers}", env: env
   command "make install", env: env
 end

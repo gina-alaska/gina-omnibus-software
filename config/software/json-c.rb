@@ -15,19 +15,19 @@
 # limitations under the License.
 #
 
-name "libtiff"
-default_version "4.0.3"
+name "json-c"
+default_version "0.11"
 
-source :url => "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz",
-       :md5 => "051c1068e6a0627f461948c365290410"
+source :url => "http://s3.amazonaws.com/json-c_releases/releases/json-c-0.11.tar.gz",
+       :md5 => "aa02367d2f7a830bf1e3376f77881e98"
 
-dependency 'zlib'
 
-relative_path "tiff-#{version}"
+relative_path "#{name}-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  command "./configure --prefix=#{install_dir}/embedded --with-zlib-prefix=#{install_dir}/embedded", env: env
-  command "make -j #{workers}", env: env
+  command [ "./configure",
+            "--prefix=#{install_dir}/embedded"].join(" "), env: env
+  command "make", env: env
   command "make install", env: env
 end

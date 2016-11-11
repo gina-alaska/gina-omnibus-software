@@ -1,5 +1,4 @@
-#
-# Copyright:: Copyright (c) University of Alaska Fairbanks
+# Copyright:: Copyright (c) 2012 University of Alaska Fairbanks
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +14,21 @@
 # limitations under the License.
 #
 
-name "libtiff"
-default_version "4.0.3"
+name "geos"
+default_version "3.3.8"
 
-source :url => "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz",
-       :md5 => "051c1068e6a0627f461948c365290410"
+source :url => "http://download.osgeo.org/geos/geos-3.3.8.tar.bz2",
+       :md5 => "75be476d0831a2d14958fed76ca266de"
 
-dependency 'zlib'
-
-relative_path "tiff-#{version}"
+relative_path "#{name}-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  command "./configure --prefix=#{install_dir}/embedded --with-zlib-prefix=#{install_dir}/embedded", env: env
-  command "make -j #{workers}", env: env
+  configure_command = ["./configure",
+                        "--prefix=#{install_dir}/embedded" ].join(" ")
+
+  command configure_command, env: env
+  command "make", env: env
   command "make install", env: env
+
 end
